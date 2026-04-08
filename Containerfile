@@ -87,7 +87,8 @@ RUN --mount=type=cache,dst=/var/cache \
         ublue-os/hhd \
         lizardbyte/beta \
         che/nerd-fonts; \
-    do \
+        avengemedia/dms \
+  do \
         echo "Enabling copr: $copr"; \
         dnf5 -y copr enable $copr; \
         dnf5 -y config-manager setopt copr:copr.fedorainfracloud.org:${copr////:}.priority=98 ;\
@@ -245,7 +246,7 @@ RUN --mount=type=cache,dst=/var/cache \
 RUN --mount=type=cache,dst=/var/cache \
     --mount=type=cache,dst=/var/log \
     --mount=type=bind,from=ctx,source=/,target=/ctx \
-    --mount=type=tmpfs,dst=/tmp \ 
+    --mount=type=tmpfs,dst=/tmp \
     --mount=type=secret,id=GITHUB_TOKEN \
     dnf5 -y install \
         $(/ctx/ghcurl https://api.github.com/repos/ublue-os/cicpoffs/releases/latest | jq -r '.assets[] | select(.name| test(".*rpm$")).browser_download_url') && \
@@ -336,7 +337,23 @@ RUN --mount=type=cache,dst=/var/cache \
         cage \
         wlr-randr \
         bazzite-portal \
-        ls-iommu && \
+        rclone \
+        trash-cli \
+        ghostty \
+        oh-my-posh \
+        zsh \
+        starship \
+        tldr \
+        ripgrep \
+        bat \
+        micro \
+        mise \
+        zoxide \
+        eza \
+        docker-ce \
+        docker-ce-cli \
+        niri \
+        dms && \
     ln -s /dev/null /etc/NetworkManager/dispatcher.d/04-iscsi && \
     systemctl mask iscsi && \
     systemctl mask wpa_supplicant.service && \
